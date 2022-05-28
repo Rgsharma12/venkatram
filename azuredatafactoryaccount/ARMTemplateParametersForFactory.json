@@ -4,6 +4,9 @@
 	"parameters": {
 		"factoryName": {
 			"value": "azuredatafactoryaccount"
+		},
+		"ls_blobstorage_connectionString": {
+			"value": ""
 		}
 	}
 }

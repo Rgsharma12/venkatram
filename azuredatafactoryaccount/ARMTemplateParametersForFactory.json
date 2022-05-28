@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "azuredatafactoryaccount"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
 		"ls_blobstorage_connectionString": {
 			"value": ""
 		}

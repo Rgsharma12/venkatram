@@ -381,11 +381,12 @@
 							"value": "@dataset().FileName",
 							"type": "Expression"
 						},
-						"folderPath": "sqltables",
+						"folderPath": "input",
 						"container": "adfdemo"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
+					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
 				"schema": []

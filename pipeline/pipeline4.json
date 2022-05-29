@@ -70,7 +70,13 @@
 							"inputs": [
 								{
 									"referenceName": "ls_sqldynamic",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": {
+											"value": "@item().Table_Schema",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}

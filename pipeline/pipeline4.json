@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select table_schema,table_name from information_schema.tables where Table_type='Base Table' and Table_name='DBO'",
+						"sqlReaderQuery": "select table_schema,table_name from information_schema.tables where Table_type='Base Table' and Table_schema='DBO'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},

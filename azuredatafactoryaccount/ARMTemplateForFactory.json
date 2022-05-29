@@ -248,7 +248,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"FileName": {
-													"value": "@item().table_name.csv",
+													"value": "@item().table_name",
 													"type": "Expression"
 												}
 											}

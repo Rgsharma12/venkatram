@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "ls_sqldb",
+						"referenceName": "ds_emp_tbl",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -36,24 +36,30 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 alterRow(upsertIf(1==1)) ~> alterRow1",
+				"source1 alterRow(upsertIf(1 == 1)) ~> alterRow1",
 				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          empid as integer,",
 				"          name as string,",
-				"          gender as string,",
-				"          salary as integer",
+				"          country as string,",
+				"          department as integer",
 				"     ),",
 				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:true,",
+				"     insertable:false,",
+				"     updateable:false,",
 				"     upsertable:true,",
+				"     keys:['empid'],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     mapColumn(",
+				"          empid,",
+				"          name,",
+				"          country,",
+				"          department = {department  }",
+				"     )) ~> sink1"
 			]
 		}
 	}

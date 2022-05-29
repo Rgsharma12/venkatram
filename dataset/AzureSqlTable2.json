@@ -6,9 +6,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"schema": {
-				"type": "string"
-			},
 			"table": {
 				"type": "string"
 			}
@@ -17,10 +14,7 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().schema",
-				"type": "Expression"
-			},
+			"schema": "dbo",
 			"table": {
 				"value": "@dataset().table",
 				"type": "Expression"

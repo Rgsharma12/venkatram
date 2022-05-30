@@ -1,0 +1,47 @@
+{
+	"name": "dataflow4",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText2",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "unpivot1"
+				},
+				{
+					"name": "unpivot2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          po as string,",
+				"          vendor as string,",
+				"          apple as string,",
+				"          Banana as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"unpivot2 unpivot(output(",
+				"          ",
+				"     ),",
+				"     lateral: true,",
+				"     ignoreNullPivots: false) ~> unpivot1",
+				"source1 unpivot(output(",
+				"          ",
+				"     ),",
+				"     lateral: true,",
+				"     ignoreNullPivots: false) ~> unpivot2"
+			]
+		}
+	}
+}

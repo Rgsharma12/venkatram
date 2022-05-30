@@ -16,9 +16,6 @@
 			"transformations": [
 				{
 					"name": "unpivot1"
-				},
-				{
-					"name": "unpivot2"
 				}
 			],
 			"scriptLines": [
@@ -31,16 +28,11 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"unpivot2 unpivot(output(",
-				"          ",
-				"     ),",
-				"     lateral: true,",
-				"     ignoreNullPivots: false) ~> unpivot1",
 				"source1 unpivot(output(",
 				"          ",
 				"     ),",
 				"     lateral: true,",
-				"     ignoreNullPivots: false) ~> unpivot2"
+				"     ignoreNullPivots: false) ~> unpivot1"
 			]
 		}
 	}

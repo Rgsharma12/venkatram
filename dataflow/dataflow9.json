@@ -37,7 +37,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 aggregate(groupBy(deptid),",
-				"     {Total Employees} = ERROR_FUNCTION('')) ~> aggregate1",
+				"     {Total Employees} = count(empid)) ~> aggregate1",
 				"aggregate1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['Aggregate_data.csv'],",

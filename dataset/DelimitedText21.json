@@ -21,7 +21,7 @@
 		},
 		"schema": [
 			{
-				"name": "deptid",
+				"name": "department",
 				"type": "String"
 			},
 			{

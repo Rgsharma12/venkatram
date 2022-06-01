@@ -47,8 +47,10 @@
 				"          deptid as string,",
 				"          {Total Employees} as string",
 				"     ),",
+				"     partitionFileNames:['Derived_data.csv'],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}

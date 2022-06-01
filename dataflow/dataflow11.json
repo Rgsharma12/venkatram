@@ -49,10 +49,10 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          empid as string,",
+				"          empid as integer,",
 				"          empname as string,",
 				"          salary as string,",
-				"          deptid as string",
+				"          deptid as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",

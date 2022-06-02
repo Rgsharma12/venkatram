@@ -13,6 +13,41 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_output')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blobstorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "files",
+						"container": "adfdemo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "deptid",
+						"type": "String"
+					},
+					{
+						"name": "Total Employees",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_pivot123')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -617,7 +652,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow12')]",
@@ -677,7 +714,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow13')]",
@@ -749,7 +788,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow13_NonExists')]",
@@ -821,7 +862,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow14_LookupDta')]",
@@ -894,7 +937,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow14_NewBranch')]",
@@ -988,7 +1033,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow14_SurrogateKey')]",
@@ -1056,7 +1103,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow14_select')]",
@@ -1118,7 +1167,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow14_sort')]",
@@ -1174,7 +1225,9 @@
 					]
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflow14_union')]",
@@ -1262,81 +1315,12 @@
 					]
 				}
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "ds_scd1",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "ds_Sqlscdtype1",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "alterRow1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          empid as integer,",
-						"          name as string,",
-						"          country as string,",
-						"          {department  } as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 alterRow(upsertIf(1==1)) ~> alterRow1",
-						"alterRow1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          empid as integer,",
-						"          name as string,",
-						"          country as string,",
-						"          department as integer",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:false,",
-						"     updateable:false,",
-						"     upsertable:true,",
-						"     keys:['empid'],",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          empid,",
-						"          name,",
-						"          country,",
-						"          department = {department  }",
-						"     )) ~> sink1"
-					]
-				}
-			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_scd1')]"
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dataflow3')]",
+			"name": "[concat(parameters('factoryName'), '/dataflow14_window')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1345,7 +1329,7 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "ds_pivotdata",
+								"referenceName": "DelimitedText30",
 								"type": "DatasetReference"
 							},
 							"name": "source1"
@@ -1354,7 +1338,7 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "ds_pivot123",
+								"referenceName": "ds_output",
 								"type": "DatasetReference"
 							},
 							"name": "sink1"
@@ -1362,28 +1346,31 @@
 					],
 					"transformations": [
 						{
-							"name": "pivot1"
+							"name": "window1"
 						}
 					],
 					"scriptLines": [
 						"source(output(",
-						"          EmpId as string,",
-						"          EmpName as string,",
-						"          EmpSalary as string,",
-						"          Gender as string,",
-						"          department as string",
+						"          empid as integer,",
+						"          name as string,",
+						"          gender as string,",
+						"          country as string,",
+						"          salary as integer,",
+						"          department as integer",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false) ~> source1",
-						"source1 pivot(groupBy(department),",
-						"     pivotBy(Gender),",
-						"     {} = count(EmpId),",
-						"     columnNaming: '$N$V',",
-						"     lateral: true) ~> pivot1",
-						"pivot1 sink(allowSchemaDrift: true,",
+						"source1 window(over(department),",
+						"     asc(salary, true),",
+						"     Avgsalary = avg(salary)) ~> window1",
+						"window1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     partitionFileNames:['EmpPivotData.csv'],",
+						"     input(",
+						"          deptid as string,",
+						"          {Total Employees} as string",
+						"     ),",
+						"     partitionFileNames:['WindowsData.csv'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     partitionBy('hash', 1)) ~> sink1"
@@ -1391,8 +1378,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_pivotdata')]",
-				"[concat(variables('factoryId'), '/datasets/ds_pivot123')]"
+				"[concat(variables('factoryId'), '/datasets/ds_output')]"
 			]
 		}
 	]

@@ -1,5 +1,5 @@
 {
-	"name": "dataflow15",
+	"name": "dataflow15_parse",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {

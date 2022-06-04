@@ -103,7 +103,7 @@
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "employee"
+					"table": "employee123_tbl"
 				}
 			},
 			"dependsOn": [

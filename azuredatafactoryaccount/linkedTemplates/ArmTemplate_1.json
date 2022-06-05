@@ -561,6 +561,49 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText33')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blobstorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "venkat.csv",
+						"container": "adfdemo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "name",
+						"type": "String"
+					},
+					{
+						"name": "gender",
+						"type": "String"
+					},
+					{
+						"name": "salary",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DelimitedText4')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -800,69 +843,6 @@
 						"type": "String"
 					}
 				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Json1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_blobstorage",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Employees.json",
-						"container": "adfdemo"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"id": {
-							"type": "string"
-						},
-						"name": {
-							"type": "string"
-						},
-						"skills": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						},
-						"Address": {
-							"type": "object",
-							"properties": {
-								"state": {
-									"type": "string"
-								},
-								"country": {
-									"type": "string"
-								},
-								"zip-code": {
-									"type": "string"
-								}
-							}
-						},
-						"contact": {
-							"type": "object",
-							"properties": {
-								"phone": {
-									"type": "string"
-								},
-								"mail": {
-									"type": "string"
-								}
-							}
-						}
-					}
-				}
 			},
 			"dependsOn": []
 		}

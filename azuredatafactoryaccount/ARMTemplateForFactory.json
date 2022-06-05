@@ -4788,10 +4788,10 @@
 					],
 					"scriptLines": [
 						"source(output(",
-						"          id as string,",
+						"          id as integer,",
 						"          name as string,",
 						"          gender as string,",
-						"          salary as string",
+						"          salary as integer",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",

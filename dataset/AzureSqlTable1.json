@@ -29,7 +29,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "employee123_tbl"
+			"table": "venkat123"
 		}
 	}
 }

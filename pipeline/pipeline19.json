@@ -1,0 +1,26 @@
+{
+	"name": "pipeline19",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "var1",
+					"value": {
+						"value": "@String(dayOfWeek('2022-06-06'))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"var1": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

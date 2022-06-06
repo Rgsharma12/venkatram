@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DelimitedText37",
+						"referenceName": "DelimitedText39",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -27,23 +27,20 @@
 				}
 			],
 			"scriptLines": [
-				"source(output(",
-				"          id as string,",
-				"          name as string,",
-				"          gender as string,",
-				"          skills as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
+				"parameters{",
+				"     filterrule as string",
+				"}",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 filter(toBoolean(byName('gender','female'))) ~> filter1",
+				"source1 filter(toBoolean(expr($filterrule))) ~> filter1",
 				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          deptid as string,",
 				"          {Total Employees} as string",
 				"     ),",
-				"     partitionFileNames:['Femaleskills_data.csv'],",
+				"     partitionFileNames:['Female.scv'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('hash', 1)) ~> sink1"

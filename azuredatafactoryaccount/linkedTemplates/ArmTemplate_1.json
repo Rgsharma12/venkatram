@@ -777,7 +777,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText4')]",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText35')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -790,8 +790,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "EmpPivotData.csv",
-						"folderPath": "files",
+						"fileName": "rulesfile.csv",
 						"container": "adfdemo"
 					},
 					"columnDelimiter": ",",
@@ -801,15 +800,9 @@
 				},
 				"schema": [
 					{
-						"name": "department",
 						"type": "String"
 					},
 					{
-						"name": "'Female'",
-						"type": "String"
-					},
-					{
-						"name": "'Male'",
 						"type": "String"
 					}
 				]
@@ -817,7 +810,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText5')]",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText36')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -825,12 +818,20 @@
 					"referenceName": "ls_blobstorage",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": "files",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"container": "adfdemo"
 					},
 					"columnDelimiter": ",",
@@ -838,20 +839,7 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": [
-					{
-						"name": "department",
-						"type": "String"
-					},
-					{
-						"name": "'Female'",
-						"type": "String"
-					},
-					{
-						"name": "'Male'",
-						"type": "String"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": []
 		}
